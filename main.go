@@ -175,18 +175,28 @@ func (c ConfigDecryptor) Decrypt(output io.Writer, input io.Reader) error {
 	for {
 		if line, err = rd.ReadString('\n'); err != nil {
 			if err == io.EOF {
+				if err = c.decryptLine(wr, line); err != nil {
+					return err
+				}
 				break
 			}
 			return fmt.Errorf("read file line error: %v", err)
 		}
-		line, err = c.processLine(line)
-		if err != nil {
-			return fmt.Errorf("line processing error: %v", err)
+		if err = c.decryptLine(wr, line); err != nil {
+			return err
 		}
-		_, err = wr.WriteString(line)
-		if err != nil {
-			return fmt.Errorf("line writing error: %v", err)
-		}
+	}
+	return nil
+}
+
+func (c ConfigDecryptor) decryptLine(wr *bufio.Writer, line string) (err error) {
+	line, err = c.processLine(line)
+	if err != nil {
+		return fmt.Errorf("line processing error: %v", err)
+	}
+	_, err = wr.WriteString(line)
+	if err != nil {
+		return fmt.Errorf("line writing error: %v", err)
 	}
 	return nil
 }
@@ -260,7 +270,7 @@ func main() {
 		output = os.Stdout
 	} else {
 		// do not truncate, append if already exists
-		f, err := os.OpenFile(*outputFile, os.O_WRONLY | os.O_CREATE, 0664)
+		f, err := os.OpenFile(*outputFile, os.O_WRONLY|os.O_CREATE, 0664)
 		if err != nil {
 			exitOnError("output open file error: %v", err)
 		}
