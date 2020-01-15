@@ -6,6 +6,6 @@ WORKDIR "/code"
 ADD . "/code"
 RUN make BINARY=spring-config-decryptor ${MAKE_TARGET}
 
-FROM scratch
+FROM alpine:3.11
 COPY --from=builder /code/spring-config-decryptor /spring-config-decryptor
 ENTRYPOINT ["/spring-config-decryptor"]
