@@ -1,6 +1,7 @@
 /spring-config-decryptor
 /bin
 /dist
+/target
 
 /*.tar
 /*.tgz

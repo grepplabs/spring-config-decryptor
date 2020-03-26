@@ -15,15 +15,15 @@ The secret values are base64 encoded and start with `{cipher}` prefix.
 
    Linux
 
-        curl -Ls https://github.com/grepplabs/spring-config-decryptor/releases/download/v0.0.1/spring-config-decryptor-v0.0.1-linux-amd64.tar.gz | tar xz
+        curl -Ls https://github.com/grepplabs/spring-config-decryptor/releases/download/v0.0.2/spring-config-decryptor-v0.0.2-linux-amd64.tar.gz | tar xz
 
    macOS
 
-        curl -Ls https://github.com/grepplabs/spring-config-decryptor/releases/download/v0.0.1/spring-config-decryptor-v0.0.1-darwin-amd64.tar.gz | tar xz
+        curl -Ls https://github.com/grepplabs/spring-config-decryptor/releases/download/v0.0.2/spring-config-decryptor-v0.0.2-darwin-amd64.tar.gz | tar xz
 
    windows
 
-        curl -Ls https://github.com/grepplabs/spring-config-decryptor/releases/download/v0.0.1/spring-config-decryptor-v0.0.1-windows-amd64.tar.gz | tar xz
+        curl -Ls https://github.com/grepplabs/spring-config-decryptor/releases/download/v0.0.2/spring-config-decryptor-v0.0.2-windows-amd64.tar.gz | tar xz
 
 
 2. Move the binary in to your PATH.
