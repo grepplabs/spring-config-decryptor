@@ -9,11 +9,17 @@ BINARY        ?= spring-config-decryptor
 VERSION       ?= $(shell git describe --tags --always --dirty)
 LDFLAGS       ?= -w -s
 
+GOARCH        ?= amd64
+GOOS          ?= linux
+
 IMAGE         ?= spring-config-decryptor
 TAG           ?= latest
 CLOUD_IMAGE   ?= grepplabs/spring-config-decryptor:$(TAG)
 
 ROOT_DIR      := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+
+OS_IMAGE      ?= local/$(GOOS)-$(GOARCH)/$(BINARY)
+OS_BIN        ?= $(BINARY)-$(GOOS)-$(GOARCH)
 
 default: build
 
@@ -23,11 +29,15 @@ test:
 build:
 	CGO_ENABLED=0 GO111MODULE=on go build -mod=vendor -o $(BINARY) $(BUILD_FLAGS) -ldflags "$(LDFLAGS)" .
 
+.PHONY: os.build
+os.build:
+	GOOS=$(GOOS) GOARCH=$(GOARCH) CGO_ENABLED=0 GO111MODULE=on go build -mod=vendor -o $(BINARY) $(BUILD_FLAGS) -ldflags "$(LDFLAGS)" .
+
 fmt:
 	go fmt ./...
 
 clean:
-	@rm -rf $(BINARY)
+	@rm -rf $(BINARY)*
 
 .PHONY: deps
 deps:
@@ -49,6 +59,27 @@ docker.build:
 docker.push: docker.build
 	docker tag $(IMAGE) $(CLOUD_IMAGE)
 	docker push $(CLOUD_IMAGE)
+
+.PHONY: os.bin
+os.bin:
+	docker build -t $(OS_IMAGE) --build-arg GOOS=$(GOOS) --build-arg GOARCH=$(GOARCH) -f Dockerfile.build .
+	$(eval BUILDCONTAINER=$(shell sh -c "docker create $(OS_IMAGE)"))
+	$(shell docker cp $(BUILDCONTAINER):/spring-config-decryptor ./$(OS_BIN))
+	$(eval RESULT=$(shell sh -c "docker rm $(BUILDCONTAINER)"))
+	$(eval RESULT=$(shell sh -c "docker rmi $(OS_IMAGE)"))
+	@echo "Binary copied to local directory"
+
+.PHONY: build.linux
+build.linux: clean
+	make GOOS=linux OS_BIN=$(BINARY) os.bin
+
+.PHONY: build.darwin
+build.darwin: clean
+	make GOOS=darwin OS_BIN=$(BINARY) os.bin
+
+.PHONY: build.windows
+build.windows: clean
+	make GOOS=windows OS_BIN=$(BINARY).exe os.bin
 
 tag:
 	git tag $(TAG)

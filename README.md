@@ -35,6 +35,21 @@ The secret values are base64 encoded and start with `{cipher}` prefix.
 ## Building
 
     make clean build
+
+## Build in docker
+
+   Linux
+
+        make build.linux
+
+   MacOS
+
+        make build.darwin
+
+   Windows
+
+        make build.windows
+
     
 ## Usage
 

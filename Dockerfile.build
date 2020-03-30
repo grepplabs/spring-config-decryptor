@@ -1,0 +1,9 @@
+FROM golang:1.14 as builder
+
+ARG GOOS=linux
+ARG GOARCH=amd64
+
+WORKDIR "/code"
+ADD . "/code"
+RUN make BINARY=spring-config-decryptor os.build
+RUN cp /code/spring-config-decryptor /spring-config-decryptor
