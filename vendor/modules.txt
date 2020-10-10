@@ -1,3 +1,6 @@
-# golang.org/x/crypto v0.0.0-20200323165209-0ec3e9974c59
+# github.com/pkg/errors v0.9.1
+## explicit
+github.com/pkg/errors
+# golang.org/x/crypto v0.0.0-20201002170205-7f63de1d35b0
 ## explicit
 golang.org/x/crypto/pbkdf2

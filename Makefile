@@ -2,7 +2,7 @@
 
 .PHONY: clean build fmt test
 
-TAG           ?= "v0.0.2"
+TAG           ?= "v0.0.3"
 
 BUILD_FLAGS   ?=
 BINARY        ?= spring-config-decryptor
