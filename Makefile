@@ -16,7 +16,7 @@ IMAGE         ?= spring-config-decryptor
 TAG           ?= latest
 CLOUD_IMAGE   ?= grepplabs/spring-config-decryptor:$(TAG)
 
-ROOT_DIR      := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+ROOT_DIR      := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 
 OS_IMAGE      ?= local/$(GOOS)-$(GOARCH)/$(BINARY)
 OS_BIN        ?= $(BINARY)-$(GOOS)-$(GOARCH)
