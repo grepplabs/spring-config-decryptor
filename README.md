@@ -15,15 +15,15 @@ The secret values are base64 encoded and start with `{cipher}` prefix.
 
    Linux
 
-        curl -Ls https://github.com/grepplabs/spring-config-decryptor/releases/download/v0.0.2/spring-config-decryptor-v0.0.2-linux-amd64.tar.gz | tar xz
+        curl -Ls https://github.com/grepplabs/spring-config-decryptor/releases/download/v0.0.4/spring-config-decryptor-v0.0.4-linux-amd64.tar.gz | tar xz
 
    macOS
 
-        curl -Ls https://github.com/grepplabs/spring-config-decryptor/releases/download/v0.0.2/spring-config-decryptor-v0.0.2-darwin-amd64.tar.gz | tar xz
+        curl -Ls https://github.com/grepplabs/spring-config-decryptor/releases/download/v0.0.4/spring-config-decryptor-v0.0.4-darwin-amd64.tar.gz | tar xz
 
    windows
 
-        curl -Ls https://github.com/grepplabs/spring-config-decryptor/releases/download/v0.0.2/spring-config-decryptor-v0.0.2-windows-amd64.tar.gz | tar xz
+        curl -Ls https://github.com/grepplabs/spring-config-decryptor/releases/download/v0.0.4/spring-config-decryptor-v0.0.4-windows-amd64.tar.gz | tar xz
 
 
 2. Move the binary in to your PATH.
@@ -62,7 +62,7 @@ The secret values are base64 encoded and start with `{cipher}` prefix.
       -f string
             The file name to decrypt. Use '-' for stdin. (default "-")
       -k string
-            The file with RSA private key. If empty the key is read from environment variable ENCRYPT_KEY 
+            The file with RSA private key. If empty the key is read from environment variable ENCRYPT_KEY / ENCRYPT_KEY_BASE64
       -o string
             The file to write the result to. Use '-' for stdout. (default "-")
     
